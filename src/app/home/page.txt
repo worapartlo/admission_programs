@@ -1,0 +1,522 @@
+"use client";
+
+import Link from "next/link";
+import { useState, useEffect } from "react";
+
+export default function Home() {
+  const [urlString, setUrlString] = useState("http://127.0.0.1:8000/programs");
+  const [gpax, setGpax] = useState("");
+
+  //Netsat score variables
+  const [thai101, setThai101] = useState("");
+  const [eng102, setEng102] = useState("");
+  const [math103, setMath103] = useState("");
+  const [sci201, setSci201] = useState("");
+  const [chem202, setChem202] = useState("");
+  const [bio203, setBio203] = useState("");
+  const [phy204, setPhy204] = useState("");
+
+  //TPAT TGAT score variables
+  const [tgat90, setTgat90] = useState("");
+  const [tgat91, setTgat91] = useState("");
+  const [tgat92, setTgat92] = useState("");
+  const [tgat93, setTgat93] = useState("");
+  const [tpat30, setTpat30] = useState("");
+
+  //Compentency score variables
+  const [fr011, setFr011] = useState("");
+  const [de012, setDe012] = useState("");
+  const [zh013, setZh013] = useState("");
+  const [ja014, setJa014] = useState("");
+  const [ko015, setKo015] = useState("");
+  const [es016, setEs016] = useState("");
+  const [music021, setMusic021] = useState("");
+  const [expVisualArt024, setExpVisualArt024] = useState("");
+  const [drawing036, setDrawing036] = useState("");
+  const [commuDrawing038, setCommuDrawing038] = useState("");
+  const [commuDesign039, setCommuDesign039] = useState("");
+  const [ar051, setAr051] = useState("");
+  const [design052, setDesign052] = useState("");
+  const [art061, setArt061] = useState("");
+  const [physical062, setPhysical062] = useState("");
+  const [techForMedVision071, setTechForMedVision071] = useState("");
+  const [artForMedVision072, setArtForMedVision072] = useState("");
+
+  // สร้าง URL string
+  useEffect(() => {
+    let url = "http://127.0.0.1:8000/programs";
+    const params = [];
+
+    if (gpax) params.push(`gpax=${gpax}`);
+    if (thai101) params.push(`thai_101=${thai101}`);
+    if (eng102) params.push(`eng_102=${eng102}`);
+    if (math103) params.push(`math_103=${math103}`);
+    if (sci201) params.push(`sci_201=${sci201}`);
+    if (chem202) params.push(`chem_202=${chem202}`);
+    if (bio203) params.push(`bio_203=${bio203}`);
+    if (phy204) params.push(`phy_204=${phy204}`);
+    if (tgat90) params.push(`tgat_general_90=${tgat90}`);
+    if (tgat91) params.push(`tgat1_english_91=${tgat91}`);
+    if (tgat92) params.push(`tgat2_critical_thinking_92=${tgat92}`);
+    if (tgat93) params.push(`tgat3_work_93=${tgat93}`);
+    if (tpat30) params.push(`pat3_engineering_30=${tpat30}`);
+    if (fr011) params.push(`fr_011=${fr011}`);
+    if (de012) params.push(`de_012=${de012}`);
+    if (zh013) params.push(`zh_013=${zh013}`);
+    if (ja014) params.push(`ja_014=${ja014}`);
+    if (ko015) params.push(`ko_015=${ko015}`);
+    if (es016) params.push(`es_016=${es016}`);
+    if (music021) params.push(`music_021=${music021}`);
+    if (expVisualArt024) params.push(`exp_visual_art_024=${expVisualArt024}`);
+    if (drawing036) params.push(`drawing_036=${drawing036}`);
+    if (commuDrawing038) params.push(`commu_drawing_038=${commuDrawing038}`);
+    if (commuDesign039) params.push(`commu_design_039=${commuDesign039}`);
+    if (ar051) params.push(`ar_051=${ar051}`);
+    if (design052) params.push(`design_052=${design052}`);
+    if (art061) params.push(`art_061=${art061}`);
+    if (physical062) params.push(`physical_062=${physical062}`);
+    if (techForMedVision071)
+      params.push(`tech_for_med_vision_071=${techForMedVision071}`);
+    if (artForMedVision072)
+      params.push(`art_for_med_vision_072=${artForMedVision072}`);
+
+    if (params.length > 0) {
+      url += "?" + params.join("&");
+    }
+
+    setUrlString(url);
+  }, [gpax, thai101, eng102, math103, sci201, chem202, bio203, phy204, urlString, tgat90, tgat91, tgat92, tgat93, tpat30, fr011, de012, zh013, ja014, ko015, es016, music021, expVisualArt024, drawing036, commuDrawing038, commuDesign039, ar051, design052, art061, physical062, techForMedVision071, artForMedVision072]);
+
+  return (
+    <div className="flex flex-col justify-center items-center p-2 m-4">
+      <div className="m-4 p-2 w-1/2">
+        <fieldset className="fieldset">
+          <legend className="fieldset-legend text-lg">เกรดเฉลี่ย (GPAX)</legend>
+          <input
+            type="number"
+            className="input"
+            placeholder="Enter your GPAX"
+            required
+            min={0}
+            max={4}
+            step={0.01}
+            value={gpax}
+            onChange={(e) => setGpax(e.target.value)}
+            onBlur={(e) => {
+              // จัดการเมื่อออกจาก input
+              const value = parseFloat(e.target.value);
+              if (isNaN(value)) {
+                setGpax("");
+              } else if (value > 4) {
+                setGpax("4");
+              } else if (value < 0) {
+                setGpax("0");
+              } else {
+                // รูปแบบทศนิยม 2 ตำแหน่ง
+                setGpax(value.toFixed(2));
+              }
+            }}
+          />
+        </fieldset>
+
+        {/* Netsat scores */}
+        <div className="collapse bg-gray-100 border-base-300 border my-3">
+          <input type="checkbox" />
+          <div className="collapse-title">คะแนน NetSat (NetSat Scores)</div>
+          <div className="collapse-content bg-gray-50">
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Thai 101</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={thai101}
+                onChange={(e) => setThai101(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">English 102</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={eng102}
+                onChange={(e) => setEng102(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Math 103</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={math103}
+                onChange={(e) => setMath103(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Science and Technology 201
+              </legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={sci201}
+                onChange={(e) => setSci201(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Chemistry 202</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={chem202}
+                onChange={(e) => setChem202(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Biology 203</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={bio203}
+                onChange={(e) => setBio203(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Physics 204</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={phy204}
+                onChange={(e) => setPhy204(e.target.value)}
+              />
+            </fieldset>
+          </div>
+        </div>
+
+        {/* Competency Scores */}
+        <div className="collapse bg-gray-100 border-base-300 border my-3">
+          <input type="checkbox" />
+          <div className="collapse-title">คะแนนสมรรถนะ (Competency Scores)</div>
+          <div className="collapse-content bg-gray-50">
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">French 011</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={fr011}
+                onChange={(e) => setFr011(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">German 012</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={de012}
+                onChange={(e) => setDe012(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Chinese 013</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={zh013}
+                onChange={(e) => setZh013(e.target.value)}
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Japanese 014</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={ja014}
+                onChange={(e) => setJa014(e.target.value)}
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Korean 015</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={ko015}
+                onChange={(e) => setKo015(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Spanish 016</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={es016}
+                onChange={(e) => setEs016(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Music 021</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={music021}
+                onChange={(e) => setMusic021(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Experimental Visual Art 024
+              </legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={expVisualArt024}
+                onChange={(e) => setExpVisualArt024(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Drawing 036</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={drawing036}
+                onChange={(e) => setDrawing036(e.target.value)}
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Communication Drawing 038
+              </legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={commuDrawing038}
+                onChange={(e) => setCommuDrawing038(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Communication Design 039
+              </legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={commuDesign039}
+                onChange={(e) => setCommuDesign039(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Architecture 051</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={ar051}
+                onChange={(e) => setAr051(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Design 052</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={design052}
+                onChange={(e) => setDesign052(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Art 061</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={art061}
+                onChange={(e) => setArt061(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Physical 062</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={physical062}
+                onChange={(e) => setPhysical062(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Technology for Medical Vision 071
+              </legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={techForMedVision071}
+                onChange={(e) => setTechForMedVision071(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Art for Medical Vision 072
+              </legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={artForMedVision072}
+                onChange={(e) => setArtForMedVision072(e.target.value)}
+              />
+            </fieldset>
+          </div>
+        </div>
+
+        {/* TGAT TPAT Scores */}
+        <div className="collapse bg-gray-100 border-base-300 border my-3">
+          <input type="checkbox" />
+          <div className="collapse-title">
+            คะแนน TGAT TPAT (TGAT TPAT Scores)
+          </div>
+          <div className="collapse-content bg-gray-50">
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">TGAT 90</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={tgat90}
+                onChange={(e) => setTgat90(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">TGAT1 91</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={tgat91}
+                onChange={(e) => setTgat91(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">TGAT2 92</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={tgat92}
+                onChange={(e) => setTgat92(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">TGAT3 93</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={tgat93}
+                onChange={(e) => setTgat93(e.target.value)}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">TPAT 30</legend>
+              <input
+                type="number"
+                className="input"
+                placeholder="Enter your score"
+                max={100}
+                value={tpat30}
+                onChange={(e) => setTpat30(e.target.value)}
+              />
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      {/* button */}
+      <div>
+        <button
+          type="submit"
+          className="btn btn-info text-white"
+          disabled={!gpax}
+        >
+          <Link href='./result'>Get result</Link>
+        </button>
+      </div>
+
+      {/* แสดง URL String */}
+      <div className="mt-6 p-4 bg-gray-100 rounded-lg w-2/3">
+        <p className="font-bold mb-2">URL String:</p>
+        <code className="break-all">{urlString}</code>
+      </div>
+    </div>
+  );
+}
