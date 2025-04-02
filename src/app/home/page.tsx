@@ -67,7 +67,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/programs", {
+      const response = await fetch("https://6a95-202-28-119-76.ngrok-free.app/programs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
