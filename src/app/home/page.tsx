@@ -41,18 +41,28 @@ export default function Home() {
     tech_for_med_vision_071: null,
     art_for_med_vision_072: null,
   });
-  const [results, setResults] = useState([]);
+
+  type Program = {
+    faculty: string;
+    program_id: number;
+    program_name: string;
+    total_score: number;
+    min_score: number;
+    gpax_required: number;
+  };
+  const [results, setResults] = useState<Program[]>([]);
+
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setScores({
       ...scores,
-      [name]: value === '' ? null : parseFloat(value)
+      [name]: value === "" ? null : parseFloat(value),
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -521,43 +531,47 @@ export default function Home() {
 
       {/* Result */}
       <div className="px-10">
-      {results.length > 0 ? (
-        <div>
-          <h2 className="text-xl font-bold mb-4">หลักสูตรที่ผ่านเกณฑ์ ({results.length})</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full border">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border p-2">คณะ</th>
-                  <th className="border p-2">รหัสหลักสูตร</th>
-                  <th className="border p-2">ชื่อหลักสูตร</th>
-                  <th className="border p-2">คะแนนรวม</th>
-                  <th className="border p-2">คะแนนขั้นต่ำ</th>
-                  <th className="border p-2">GPAX ขั้นต่ำ</th>
-                </tr>
-              </thead>
-              <tbody>
-                {results.map((program, index) => (
-                  <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
-                    <td className="border p-2">{program.faculty}</td>
-                    <td className="border p-2">{program.program_id}</td>
-                    <td className="border p-2">{program.program_name}</td>
-                    <td className="border p-2">{program.total_score}</td>
-                    <td className="border p-2">{program.min_score}</td>
-                    <td className="border p-2">{program.gpax_required}</td>
+        {results.length > 0 ? (
+          <div>
+            <h2 className="text-xl font-bold mb-4">
+              หลักสูตรที่ผ่านเกณฑ์ ({results.length})
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="border p-2">คณะ</th>
+                    <th className="border p-2">รหัสหลักสูตร</th>
+                    <th className="border p-2">ชื่อหลักสูตร</th>
+                    <th className="border p-2">คะแนนรวม</th>
+                    <th className="border p-2">คะแนนขั้นต่ำ</th>
+                    <th className="border p-2">GPAX ขั้นต่ำ</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {results.map((program, index) => (
+                    <tr
+                      key={index}
+                      className={index % 2 === 0 ? "bg-gray-50" : ""}
+                    >
+                      <td className="border p-2">{program.faculty}</td>
+                      <td className="border p-2">{program.program_id}</td>
+                      <td className="border p-2">{program.program_name}</td>
+                      <td className="border p-2">{program.total_score}</td>
+                      <td className="border p-2">{program.min_score}</td>
+                      <td className="border p-2">{program.gpax_required}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      ) : loading ? (
-        <p>กำลังโหลดข้อมูล...</p>
-      ) : (
-        <p>ยังไม่มีผลลัพธ์</p>
-      )}
+        ) : loading ? (
+          <p>กำลังโหลดข้อมูล...</p>
+        ) : (
+          <p>ยังไม่มีผลลัพธ์</p>
+        )}
       </div>
-      
     </div>
   );
 }
