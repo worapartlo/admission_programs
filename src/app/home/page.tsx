@@ -120,6 +120,7 @@ export default function Home() {
                 className="input"
                 name="thai_101"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.thai_101 || ""}
                 onChange={handleInputChange}
@@ -133,6 +134,7 @@ export default function Home() {
                 className="input"
                 name="eng_102"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.eng_102 || ""}
                 onChange={handleInputChange}
@@ -146,6 +148,7 @@ export default function Home() {
                 className="input"
                 name="math_103"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.math_103 || ""}
                 onChange={handleInputChange}
@@ -161,6 +164,7 @@ export default function Home() {
                 className="input"
                 name="sci_201"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.sci_201 || ""}
                 onChange={handleInputChange}
@@ -174,6 +178,7 @@ export default function Home() {
                 className="input"
                 name="chem_202"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.chem_202 || ""}
                 onChange={handleInputChange}
@@ -187,6 +192,7 @@ export default function Home() {
                 className="input"
                 name="bio_203"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.bio_203 || ""}
                 onChange={handleInputChange}
@@ -200,6 +206,7 @@ export default function Home() {
                 className="input"
                 name="phy_204"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.phy_204 || ""}
                 onChange={handleInputChange}
@@ -220,6 +227,7 @@ export default function Home() {
                 className="input"
                 name="fr_011"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.fr_011 || ""}
                 onChange={handleInputChange}
@@ -233,6 +241,7 @@ export default function Home() {
                 className="input"
                 name="de_012"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.de_012 || ""}
                 onChange={handleInputChange}
@@ -246,6 +255,7 @@ export default function Home() {
                 className="input"
                 name="zh_013"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.zh_013 || ""}
                 onChange={handleInputChange}
@@ -258,6 +268,7 @@ export default function Home() {
                 className="input"
                 name="ja_014"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.ja_014 || ""}
                 onChange={handleInputChange}
@@ -270,6 +281,7 @@ export default function Home() {
                 className="input"
                 name="ko_015"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.ko_015 || ""}
                 onChange={handleInputChange}
@@ -296,6 +308,7 @@ export default function Home() {
                 className="input"
                 name="music_021"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.music_021 || ""}
                 onChange={handleInputChange}
@@ -311,6 +324,7 @@ export default function Home() {
                 className="input"
                 name="exp_visual_art_024"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.exp_visual_art_024 || ""}
                 onChange={handleInputChange}
@@ -324,6 +338,7 @@ export default function Home() {
                 className="input"
                 name="drawing_036"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.drawing_036 || ""}
                 onChange={handleInputChange}
@@ -338,6 +353,7 @@ export default function Home() {
                 className="input"
                 name="commu_drawing_038"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.commu_drawing_038 || ""}
                 onChange={handleInputChange}
@@ -366,6 +382,7 @@ export default function Home() {
                 className="input"
                 name="ar_051"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.ar_051 || ""}
                 onChange={handleInputChange}
@@ -379,6 +396,7 @@ export default function Home() {
                 className="input"
                 name="design_052"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.design_052 || ""}
                 onChange={handleInputChange}
@@ -392,6 +410,7 @@ export default function Home() {
                 className="input"
                 name="art_061"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.art_061 || ""}
                 onChange={handleInputChange}
@@ -405,6 +424,7 @@ export default function Home() {
                 className="input"
                 name="physical_062"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.physical_062 || ""}
                 onChange={handleInputChange}
@@ -420,6 +440,7 @@ export default function Home() {
                 className="input"
                 name="tech_for_med_vision_071"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.tech_for_med_vision_071 || ""}
                 onChange={handleInputChange}
@@ -435,6 +456,7 @@ export default function Home() {
                 className="input"
                 name="art_for_med_vision_072"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.art_for_med_vision_072 || ""}
                 onChange={handleInputChange}
@@ -457,6 +479,7 @@ export default function Home() {
                 className="input"
                 name="tgat_90"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.tgat_90 || ""}
                 onChange={handleInputChange}
@@ -483,6 +506,7 @@ export default function Home() {
                 className="input"
                 name="tgat_92"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.tgat_92 || ""}
                 onChange={handleInputChange}
@@ -496,6 +520,7 @@ export default function Home() {
                 className="input"
                 name="tgat_93"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.tgat_93 || ""}
                 onChange={handleInputChange}
@@ -509,6 +534,7 @@ export default function Home() {
                 className="input"
                 name="tpat_30"
                 placeholder="Enter your score"
+                min={0}
                 max={100}
                 value={scores.tpat_30 || ""}
                 onChange={handleInputChange}
@@ -567,9 +593,9 @@ export default function Home() {
             </div>
           </div>
         ) : loading ? (
-          <p>กำลังโหลดข้อมูล...</p>
+          <span className="loading loading-ring loading-xl text-success scale-200"></span>
         ) : (
-          <p>ยังไม่มีผลลัพธ์</p>
+          <p>ไม่มีผลลัพธ์ตามคะแนนที่ท่านกรอก</p>
         )}
       </div>
     </div>
