@@ -67,7 +67,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/programs", {
+      const response = await fetch("https://gratefully-neat-mastiff.ngrok-free.app/programs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
