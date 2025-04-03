@@ -31,15 +31,15 @@ export default function Home() {
     es_016: null,
     music_021: null,
     exp_visual_art_024: null,
-    drawing_036: null,
-    commu_drawing_038: null,
-    commu_design_039: null,
-    ar_051: null,
-    design_052: null,
-    art_061: null,
-    physical_062: null,
-    tech_for_med_vision_071: null,
-    art_for_med_vision_072: null,
+    drawing_023: null,
+    commu_drawing_025: null,
+    commu_design_026: null,
+    ar_041: null,
+    design_042: null,
+    art_051: null,
+    physical_052: null,
+    tech_for_med_vision_061: null,
+    art_for_med_vision_062: null,
   });
 
   type Program = {
@@ -332,133 +332,133 @@ export default function Home() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Drawing 036</legend>
+              <legend className="fieldset-legend">Drawing 023</legend>
               <input
                 type="number"
                 className="input"
-                name="drawing_036"
+                name="drawing_023"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.drawing_036 || ""}
+                value={scores.drawing_023 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Communication Drawing 038
+                Communication Drawing 025
               </legend>
               <input
                 type="number"
                 className="input"
-                name="commu_drawing_038"
+                name="commu_drawing_025"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.commu_drawing_038 || ""}
-                onChange={handleInputChange}
-              />
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">
-                Communication Design 039
-              </legend>
-              <input
-                type="number"
-                className="input"
-                name="commu_design_039"
-                placeholder="Enter your score"
-                max={100}
-                value={scores.commu_design_039 || ""}
-                onChange={handleInputChange}
-              />
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Architecture 051</legend>
-              <input
-                type="number"
-                className="input"
-                name="ar_051"
-                placeholder="Enter your score"
-                min={0}
-                max={100}
-                value={scores.ar_051 || ""}
-                onChange={handleInputChange}
-              />
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Design 052</legend>
-              <input
-                type="number"
-                className="input"
-                name="design_052"
-                placeholder="Enter your score"
-                min={0}
-                max={100}
-                value={scores.design_052 || ""}
-                onChange={handleInputChange}
-              />
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Art 061</legend>
-              <input
-                type="number"
-                className="input"
-                name="art_061"
-                placeholder="Enter your score"
-                min={0}
-                max={100}
-                value={scores.art_061 || ""}
-                onChange={handleInputChange}
-              />
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Physical 062</legend>
-              <input
-                type="number"
-                className="input"
-                name="physical_062"
-                placeholder="Enter your score"
-                min={0}
-                max={100}
-                value={scores.physical_062 || ""}
+                value={scores.commu_drawing_025 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Technology for Medical Vision 071
+                Communication Design 026
               </legend>
               <input
                 type="number"
                 className="input"
-                name="tech_for_med_vision_071"
+                name="commu_design_026"
+                placeholder="Enter your score"
+                max={100}
+                value={scores.commu_design_026 || ""}
+                onChange={handleInputChange}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Architecture 041</legend>
+              <input
+                type="number"
+                className="input"
+                name="ar_041"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.tech_for_med_vision_071 || ""}
+                value={scores.ar_041 || ""}
+                onChange={handleInputChange}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Design 042</legend>
+              <input
+                type="number"
+                className="input"
+                name="design_042"
+                placeholder="Enter your score"
+                min={0}
+                max={100}
+                value={scores.design_042 || ""}
+                onChange={handleInputChange}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Art 051</legend>
+              <input
+                type="number"
+                className="input"
+                name="art_051"
+                placeholder="Enter your score"
+                min={0}
+                max={100}
+                value={scores.art_051 || ""}
+                onChange={handleInputChange}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Physical 052</legend>
+              <input
+                type="number"
+                className="input"
+                name="physical_052"
+                placeholder="Enter your score"
+                min={0}
+                max={100}
+                value={scores.physical_052 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Art for Medical Vision 072
+                Technology for Medical Vision 061
               </legend>
               <input
                 type="number"
                 className="input"
-                name="art_for_med_vision_072"
+                name="tech_for_med_vision_061"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.art_for_med_vision_072 || ""}
+                value={scores.tech_for_med_vision_061 || ""}
+                onChange={handleInputChange}
+              />
+            </fieldset>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">
+                Art for Medical Vision 062
+              </legend>
+              <input
+                type="number"
+                className="input"
+                name="art_for_med_vision_062"
+                placeholder="Enter your score"
+                min={0}
+                max={100}
+                value={scores.art_for_med_vision_062 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
