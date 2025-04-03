@@ -67,7 +67,7 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const response = await fetch("https://6a95-202-28-119-76.ngrok-free.app/programs", {
+      const response = await fetch("http://localhost:8000/programs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -544,7 +544,7 @@ export default function Home() {
         </div>
 
         {/* button */}
-        <div>
+        <div className="flex justify-center items-center scale-125 my-5">
           <button
             type="submit"
             className="btn btn-info text-white"
