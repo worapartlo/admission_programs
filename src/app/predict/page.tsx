@@ -272,7 +272,7 @@ export default function SelectProgram() {
 
   return (
     <div className="flex flex-col justify-center items-center p-2 m-4">
-        <h1 className="font-bold text-2xl underline">โปรแกรมประเมินความเป็นไปได้ในการเข้าศึกษาตามหลักสูตร</h1>
+        <h1 className="font-bold underline whitespace-nowrap text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">โปรแกรมประเมินความเป็นไปได้ในการเข้าศึกษาตามหลักสูตร</h1>
       <form onSubmit={handleSubmit} className="my-8 w-1/2">
         <h1 className="text-xl font-bold mb-4">เลือกหลักสูตร</h1>
         {/* Dropdown เลือกโปรแกรม */}
