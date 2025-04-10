@@ -17,10 +17,10 @@ export default function Home() {
 
     //TPAT TGAT scores
     tgat_90: null,
-    tgat_91: null,
-    tgat_92: null,
-    tgat_93: null,
-    tpat_30: null,
+    tgat1_91: null,
+    tgat2_92: null,
+    tgat3_93: null,
+    tpat3_30: null,
 
     //Compentency scores
     fr_011: null,
@@ -86,6 +86,9 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+    console.log("Scores submitted:", scores);
+    console.log("Results received:", results);
+
   };
 
   return (
@@ -491,10 +494,10 @@ export default function Home() {
               <input
                 type="number"
                 className="input"
-                name="tgat_91"
+                name="tgat1_91"
                 placeholder="Enter your score"
                 max={100}
-                value={scores.tgat_91 || ""}
+                value={scores.tgat1_91 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
@@ -504,11 +507,11 @@ export default function Home() {
               <input
                 type="number"
                 className="input"
-                name="tgat_92"
+                name="tgat2_92"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.tgat_92 || ""}
+                value={scores.tgat2_92 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
@@ -518,11 +521,11 @@ export default function Home() {
               <input
                 type="number"
                 className="input"
-                name="tgat_93"
+                name="tgat3_93"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.tgat_93 || ""}
+                value={scores.tgat3_93 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
@@ -532,11 +535,11 @@ export default function Home() {
               <input
                 type="number"
                 className="input"
-                name="tpat_30"
+                name="tpat3_30"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.tpat_30 || ""}
+                value={scores.tpat3_30 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>

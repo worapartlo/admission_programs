@@ -17,10 +17,10 @@ export default function SelectProgram() {
 
     //TPAT TGAT scores
     tgat_90: null,
-    tgat_91: null,
-    tgat_92: null,
-    tgat_93: null,
-    tpat_30: null,
+    tgat1_91: null,
+    tgat2_92: null,
+    tgat3_93: null,
+    tpat3_30: null,
 
     //Compentency scores
     fr_011: null,
@@ -234,7 +234,7 @@ export default function SelectProgram() {
         console.log(
           `Total Score: ${program.total_score}, Min Score: ${selectedProgram.min_score}, Max Score: ${selectedProgram.max_score}`
         );
-        console.log(`Percentage: ${percentageValue}%, Chance: ${message}`);
+        console.log(`Percentage: ${percentageValue}%`);
 
         return {
           ...program,
@@ -272,11 +272,40 @@ export default function SelectProgram() {
 
   return (
     <div className="flex flex-col justify-center items-center p-2 m-4">
-      <h1 className="font-bold underline whitespace-nowrap text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
-        โปรแกรมประเมินความเป็นไปได้ในการเข้าศึกษา
+      <h1 className="font-bold underline decoration-double whitespace-nowrap text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
+        👨🏻‍🎓 โปรแกรมประเมินความเป็นไปได้ในการเข้าศึกษา 🪄📚
       </h1>
+      {/* modal infomation */}
+      <button
+        className="btn btn-md mt-4"
+        onClick={() => {
+          const modal = document.getElementById("my_modal_1") as HTMLDialogElement | null
+          if (modal) {modal.showModal();}}}
+      >
+          📖 วิธีการใช้งาน
+      </button>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">**รายละเอียดการใช้งาน**</h3>
+          <p className="py-4">
+            1. เลือกหลักสูตรที่ต้องการประเมิน<br />
+            2. กรอกคะแนน GPAX และคะแนน NetSat, สมรรถนะ, TGAT TPAT<br />
+            3. กดปุ่ม &quot;Get result&quot; เพื่อดูผลลัพธ์<br />
+            4. ผลลัพธ์จะแสดงความเป็นไปได้ในการเข้าศึกษาในหลักสูตรที่เลือก<br />
+            <br />**โปรดตรวจสอบคะแนน ให้ครบถ้วนตามที่หลักสูตรแต่ละสาขาวิชากำหนด**
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* form */}
       <form onSubmit={handleSubmit} className="my-8 w-1/2">
-        <h1 className="text-xl font-bold mb-4">เลือกหลักสูตร</h1>
+        <h1 className="text-xl font-bold mb-4">🎓 เลือกหลักสูตร</h1>
         {/* Dropdown เลือกโปรแกรม */}
         <select
           id="program-select"
@@ -317,7 +346,9 @@ export default function SelectProgram() {
       )}  */}
 
         <fieldset className="fieldset">
-          <legend className="fieldset-legend text-lg">เกรดเฉลี่ย (GPAX)</legend>
+          <legend className="fieldset-legend text-lg">
+            📖 เกรดเฉลี่ย (GPAX)
+          </legend>
           <input
             type="number"
             className="input"
@@ -338,7 +369,9 @@ export default function SelectProgram() {
           <div className="collapse-title">คะแนน NetSat (NetSat Scores)</div>
           <div className="collapse-content bg-gray-50">
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Thai 101</legend>
+              <legend className="fieldset-legend">
+                101 ความฉลาดรู้่ทั่วไป ทางด้านภาษาไทย
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -352,7 +385,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">English 102</legend>
+              <legend className="fieldset-legend">
+                102 ความฉลาดรู้่ทั่วไป ทางด้านภาษาอังกฤษ
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -366,7 +401,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Math 103</legend>
+              <legend className="fieldset-legend">
+                103 ความฉลาดรู้่ทั่วไป ทางด้านคณิตศาสตร์
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -381,7 +418,7 @@ export default function SelectProgram() {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Science and Technology 201
+                201 ความฉลาดรู้่เฉพาะด้าน ด้านวิทยาศาสตร์และเทคโนโลยี
               </legend>
               <input
                 type="number"
@@ -396,7 +433,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Chemistry 202</legend>
+              <legend className="fieldset-legend">
+                202 ความฉลาดรู้่เฉพาะด้าน ด้านเคมี
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -410,7 +449,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Biology 203</legend>
+              <legend className="fieldset-legend">
+                203 ความฉลาดรู้่เฉพาะด้าน ด้านชีววิทยา
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -424,7 +465,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Physics 204</legend>
+              <legend className="fieldset-legend">
+                204 ความฉลาดรู้่เฉพาะด้าน ด้านฟิสิกส์
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -445,7 +488,9 @@ export default function SelectProgram() {
           <div className="collapse-title">คะแนนสมรรถนะ (Competency Scores)</div>
           <div className="collapse-content bg-gray-50">
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">French 011</legend>
+              <legend className="fieldset-legend">
+                011 สมรรถนะเฉพาะด้านภาษาฝรั่งเศษ
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -459,7 +504,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">German 012</legend>
+              <legend className="fieldset-legend">
+                012 สมรรถนะเฉพาะด้านภาษาเยอรมัน
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -473,7 +520,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Chinese 013</legend>
+              <legend className="fieldset-legend">
+                013 สมรรถนะเฉพาะด้านภาษาจีน
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -486,7 +535,9 @@ export default function SelectProgram() {
               />
             </fieldset>
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Japanese 014</legend>
+              <legend className="fieldset-legend">
+                014 สมรรถนะเฉพาะด้านภาษาญี่ปุ่น
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -499,7 +550,9 @@ export default function SelectProgram() {
               />
             </fieldset>
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Korean 015</legend>
+              <legend className="fieldset-legend">
+                015 สมรรถนะเฉพาะด้านภาษาเกาหลี
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -513,7 +566,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Spanish 016</legend>
+              <legend className="fieldset-legend">
+                016 สมรรถนะเฉพาะด้านภาษาสเปน
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -526,7 +581,7 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Music 021</legend>
+              <legend className="fieldset-legend">021 สมรรถนะด้านดนตรี</legend>
               <input
                 type="number"
                 className="input"
@@ -541,7 +596,7 @@ export default function SelectProgram() {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Experimental Visual Art 024
+                024 สมรรถนะด้านการทดลองทางทัศนศิลป์
               </legend>
               <input
                 type="number"
@@ -556,7 +611,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Drawing 023</legend>
+              <legend className="fieldset-legend">
+                023 สมรรถนะด้านการวาดเส้น
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -570,7 +627,7 @@ export default function SelectProgram() {
             </fieldset>
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Communication Drawing 025
+                025 สมรรถนะด้านวาดเส้นเพื่อการสื่อสาร
               </legend>
               <input
                 type="number"
@@ -586,7 +643,7 @@ export default function SelectProgram() {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Communication Design 026
+                026 สมรรถนะด้านการออกแบบเพื่อการสื่อสาร
               </legend>
               <input
                 type="number"
@@ -600,7 +657,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Architecture 041</legend>
+              <legend className="fieldset-legend">
+                041 สมรรถนะเฉพาะด้านสถาปัตยกรรมศาสตร์
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -614,7 +673,9 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Design 042</legend>
+              <legend className="fieldset-legend">
+                042 สมรรถนะเฉพาะด้านการออกแบบ
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -628,7 +689,7 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Art 051</legend>
+              <legend className="fieldset-legend">051 ความถนัดทางศิลป์</legend>
               <input
                 type="number"
                 className="input"
@@ -642,7 +703,7 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Physical 052</legend>
+              <legend className="fieldset-legend">052 สมรรถนะทางกาย</legend>
               <input
                 type="number"
                 className="input"
@@ -657,7 +718,7 @@ export default function SelectProgram() {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Technology for Medical Vision 061
+                061 สมรรถนะด้านเทคโนโลยีสำหรับเวชนิทัศน์
               </legend>
               <input
                 type="number"
@@ -673,7 +734,7 @@ export default function SelectProgram() {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
-                Art for Medical Vision 062
+                062 สมรรถนะด้านศิลป์สำหรับเวชนิทัศน์
               </legend>
               <input
                 type="number"
@@ -697,7 +758,9 @@ export default function SelectProgram() {
           </div>
           <div className="collapse-content bg-gray-50">
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">TGAT 90</legend>
+              <legend className="fieldset-legend">
+                TGAT 90 ความถนัดทั่วไป
+              </legend>
               <input
                 type="number"
                 className="input"
@@ -711,56 +774,64 @@ export default function SelectProgram() {
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">TGAT1 91</legend>
+              <legend className="fieldset-legend">
+                TGAT1 91 ความฉลาดรู้่ทั่วไป-การสื่อสารภาษาอังกฤษ
+              </legend>
               <input
                 type="number"
                 className="input"
-                name="tgat_91"
+                name="tgat1_91"
                 placeholder="Enter your score"
                 max={100}
-                value={scores.tgat_91 || ""}
+                value={scores.tgat1_91 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">TGAT2 92</legend>
+              <legend className="fieldset-legend">
+                TGAT2 92 ความถนัดทั่วไป-การคิดอย่างมีเหตุผล
+              </legend>
               <input
                 type="number"
                 className="input"
-                name="tgat_92"
+                name="tgat2_92"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.tgat_92 || ""}
+                value={scores.tgat2_92 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">TGAT3 93</legend>
+              <legend className="fieldset-legend">
+                TGAT3 93 ความถนัดทั่วไป-สมรรถนะการทำงาน
+              </legend>
               <input
                 type="number"
                 className="input"
-                name="tgat_93"
+                name="tgat3_93"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.tgat_93 || ""}
+                value={scores.tgat3_93 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
 
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">TPAT 30</legend>
+              <legend className="fieldset-legend">
+                TPAT 30 ความถนัดทางวิทยาศาสตร์ เทคโนโลยี วิศวกรรมศาสตร์
+              </legend>
               <input
                 type="number"
                 className="input"
-                name="tpat_30"
+                name="tpat3_30"
                 placeholder="Enter your score"
                 min={0}
                 max={100}
-                value={scores.tpat_30 || ""}
+                value={scores.tpat3_30 || ""}
                 onChange={handleInputChange}
               />
             </fieldset>
@@ -768,10 +839,10 @@ export default function SelectProgram() {
         </div>
 
         {/* button */}
-        <div className="flex justify-center items-center scale-125 my-5">
+        <div className="flex justify-center items-center scale-125 mt-5 pt-5">
           <button
             type="submit"
-            className="btn btn-info text-white"
+            className="btn btn-warning text-white"
             disabled={!scores.gpax}
           >
             Get result
@@ -796,7 +867,7 @@ export default function SelectProgram() {
                       <h3 className="text-center text-xl font-semibold text-gray-800 mb-2">
                         🎓 จากหลักสูตรที่เลือก:
                       </h3>
-                      <h4 className="text-center text-lg font-bold text-orange-600 mb-1">
+                      <h4 className="text-center text-lg font-bold text-amber-600 underline mb-1">
                         {program.faculty} - {program.program_name}
                       </h4>
                       <p className="text-center text-base text-gray-700">
@@ -807,7 +878,11 @@ export default function SelectProgram() {
                 </div>
               ) : (
                 <p>
-                  โปรดตรวจสอบคะแนนของ {selectedProgram?.program_name} ให้ครบถ้วน.
+                  โปรดตรวจสอบคะแนนของ{" "}
+                  <span className="font-bold">
+                    {selectedProgram?.program_name}
+                  </span>{" "}
+                  ให้ครบถ้วน.
                 </p>
               )}
             </div>
