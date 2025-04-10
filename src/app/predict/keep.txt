@@ -1,0 +1,79 @@
+ {/* คำอธิบายระดับโอกาส 
+        <div className="my-4 flex flex-col gap-2">
+          <h3 className="text-lg font-medium">ระดับโอกาสการสอบติด:</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="p-2 bg-red-100 rounded">
+              <span className="font-bold">0%</span> - ไม่มีโอกาสสอบติด
+            </div>
+            <div className="p-2 bg-yellow-100 rounded">
+              <span className="font-bold">1-33%</span> - มีโอกาสสอบติดแต่ต้องพยายาม
+            </div>
+            <div className="p-2 bg-blue-100 rounded">
+              <span className="font-bold">34-66%</span> - มีโอกาสสอบติดปานกลางแต่อย่าประมาท
+            </div>
+            <div className="p-2 bg-green-100 rounded">
+              <span className="font-bold">67-100%</span> - มีโอกาสสอบติดสูงแต่อย่าประมาท
+            </div>
+          </div>
+        </div> */}
+
+      {/* Result 
+        <div className="px-10 my-6 items-center justify-center text-center bg-lime-400">
+          {allResults.length > 0 ? (
+            <div className="w-full p-2 ml-4 md:px-0 bg-pink-300">
+              <div className="flex flex-col mb-4">
+                <h2 className="text-xl font-bold mb-2">
+                  หลักสูตรที่เลือก: {selectedProgram?.program_name}
+                </h2>
+                <h3 className="text-lg font-medium mb-4">
+                  ผลลัพธ์ที่ชื่อหลักสูตรตรงกัน ({filteredResults.length})
+                </h3>
+                {filteredResults.length > 0 ? (
+                  <div className="overflow-x-auto mb-8">
+                    <table className="min-w-full border-collapse border border-gray-300">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="border p-1">คณะ</th>
+                          <th className="border p-1">รหัสหลักสูตร</th>
+                          <th className="border p-1">ชื่อหลักสูตร</th>
+                          <th className="border p-1">คะแนนรวม</th>
+                          <th className="border p-1">คะแนนขั้นต่ำ</th>
+                          <th className="border p-1">GPAX ขั้นต่ำ</th>
+                          <th className="border p-1">เปอร์เซ็นต์</th>
+                          <th className="border p-1">โอกาสสอบติด</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredResults.map((program, index) => (
+                          <tr
+                            key={index}
+                            className={getChanceBgColor(program.chanceCategory)}
+                          >
+                            <td className="border p-2">{program.faculty}</td>
+                            <td className="border p-2">{program.program_id}</td>
+                            <td className="border p-2">{program.program_name}</td>
+                            <td className="border p-2">{program.total_score}</td>
+                            <td className="border p-2">{program.min_score}</td>
+                            <td className="border p-2">{program.gpax_required}</td>
+                            <td className="border p-2">
+                              {program.percentage !== undefined ? `${program.percentage}%` : 'N/A'}
+                            </td>
+                            <td className="border p-2 font-medium">
+                              {program.chanceMessage || 'N/A'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <p>ไม่พบหลักสูตรที่มีชื่อตรงกับ {selectedProgram?.program_name}</p>
+                )}
+              </div>
+            </div>
+          ) : loading ? (
+            <span className="loading loading-ring loading-xl text-success scale-200"></span>
+          ) : (
+            <p>ไม่มีผลลัพธ์ตามคะแนนที่ท่านกรอก</p>
+          )}
+        </div> */}
