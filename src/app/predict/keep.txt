@@ -77,3 +77,20 @@
             <p>ไม่มีผลลัพธ์ตามคะแนนที่ท่านกรอก</p>
           )}
         </div> */}
+
+        <div
+                      key={program.program_id}
+                      className={`rounded-xl shadow-md p-6 mb-6 transition-all duration-300 ${getChanceBgColor(
+                        program.chanceCategory
+                      )}`}
+                    >
+                      <h3 className="text-center text-xl font-semibold text-gray-800 mb-2">
+                        🎓 จากหลักสูตรที่เลือก:
+                      </h3>
+                      <h4 className="text-center text-lg font-bold text-amber-600 underline mb-1">
+                        {program.faculty} - {program.program_name}
+                      </h4>
+                      <p className="text-center text-base text-gray-700">
+                        {program.chanceMessage || "N/A"}
+                      </p>
+                    </div>
