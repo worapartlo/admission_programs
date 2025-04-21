@@ -108,7 +108,7 @@ export default function SelectProgram() {
 
     try {
       const response = await fetch(
-        "https://gratefully-neat-mastiff.ngrok-free.app/programs",
+        "https://fastapiadmissionprograms-production.up.railway.app/programs",
         {
           method: "POST",
           headers: {
@@ -139,6 +139,8 @@ export default function SelectProgram() {
               ? ((program.total_score - selectedProgram.min_score) /
                   (selectedProgram.max_score - selectedProgram.min_score)) *
                 100
+              : program.total_score >= selectedProgram.min_score
+              ? 100
               : 0;
 
           const percentageValue = parseFloat(percentage.toFixed(2));
@@ -185,13 +187,16 @@ export default function SelectProgram() {
     useState<type_list_Program | null>(null);
 
   useEffect(() => {
-    fetch("https://gratefully-neat-mastiff.ngrok-free.app/list_programs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(var_list_programs),
-    })
+    fetch(
+      "https://fastapiadmissionprograms-production.up.railway.app/list_programs",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(var_list_programs),
+      }
+    )
       .then(async (res) => {
         const contentType = res.headers.get("content-type");
         if (!res.ok || !contentType?.includes("application/json")) {
@@ -219,11 +224,13 @@ export default function SelectProgram() {
       // Calculate percentage for each filtered program and categorize chance
       const filteredWithPercentage = filtered.map((program: Program) => {
         const percentage =
-          selectedProgram.max_score !== selectedProgram.min_score
-            ? ((program.total_score - selectedProgram.min_score) /
-                (selectedProgram.max_score - selectedProgram.min_score)) *
-              100
-            : 0;
+            selectedProgram.max_score !== selectedProgram.min_score
+              ? ((program.total_score - selectedProgram.min_score) /
+                  (selectedProgram.max_score - selectedProgram.min_score)) *
+                100
+              : program.total_score >= selectedProgram.min_score
+              ? 100
+              : 0;
 
         const percentageValue = parseFloat(percentage.toFixed(2));
         const { category, message } = categorizeChance(percentageValue);
