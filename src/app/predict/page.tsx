@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 
 export default function SelectProgram() {
+
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const [scores, setScores] = useState({
     gpax: null,
 
@@ -108,7 +110,7 @@ export default function SelectProgram() {
 
     try {
       const response = await fetch(
-        "https://fastapiadmissionprograms-production.up.railway.app/programs",
+        `${baseURL}/programs`,
         {
           method: "POST",
           headers: {
@@ -188,7 +190,7 @@ export default function SelectProgram() {
 
   useEffect(() => {
     fetch(
-      "https://fastapiadmissionprograms-production.up.railway.app/list_programs",
+      `${baseURL}/list_programs`,
       {
         method: "POST",
         headers: {
@@ -224,13 +226,13 @@ export default function SelectProgram() {
       // Calculate percentage for each filtered program and categorize chance
       const filteredWithPercentage = filtered.map((program: Program) => {
         const percentage =
-            selectedProgram.max_score !== selectedProgram.min_score
-              ? ((program.total_score - selectedProgram.min_score) /
-                  (selectedProgram.max_score - selectedProgram.min_score)) *
-                100
-              : program.total_score >= selectedProgram.min_score
-              ? 100
-              : 0;
+          selectedProgram.max_score !== selectedProgram.min_score
+            ? ((program.total_score - selectedProgram.min_score) /
+                (selectedProgram.max_score - selectedProgram.min_score)) *
+              100
+            : program.total_score >= selectedProgram.min_score
+            ? 100
+            : 0;
 
         const percentageValue = parseFloat(percentage.toFixed(2));
         const { category, message } = categorizeChance(percentageValue);
@@ -330,14 +332,26 @@ export default function SelectProgram() {
           onChange={handleSelectChange}
           value={selectedProgram?.program_id || ""}
         >
-          {var_list_programs.map((list_name_program) => (
-            <option
-              key={list_name_program.id}
-              value={list_name_program.program_id}
-            >
-              {list_name_program.faculty_name} -{" "}
-              {list_name_program.program_name}
-            </option>
+          {Object.entries(
+
+            //.reduce() เพื่อสร้างอ็อบเจกต์ใหม่ที่จัดกลุ่มข้อมูลตาม faculty_name groups คืออ็อบเจกต์ผลลัพธ์ที่เรากำลังสร้าง
+            var_list_programs.reduce((groups, program) => {
+              if (!groups[program.faculty_name]) {
+                groups[program.faculty_name] = [];
+              }
+              groups[program.faculty_name].push(program);
+              return groups;
+
+              //Record<string, typeof var_list_programs> คือ type บอกว่า key เป็น string และ value เป็น array ของ program object
+            }, {} as Record<string, typeof var_list_programs>)
+          ).map(([faculty, programs]) => (
+            <optgroup key={faculty} label={faculty}>
+              {programs.map((program) => (
+                <option key={program.id} value={program.program_id}>
+                  {program.program_name}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
 
