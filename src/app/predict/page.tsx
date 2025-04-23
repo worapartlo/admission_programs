@@ -4,7 +4,10 @@ import { useState, useEffect } from "react";
 
 export default function SelectProgram() {
 
+  // baseURL สำหรับเรียก API โดยดึงมาจากไฟล์ .env
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+  // เก็บค่าคะแนนจากแบบฟอร์มใน state โดยตั้งค่าเริ่มต้นเป็น null
   const [scores, setScores] = useState({
     gpax: null,
 
@@ -44,6 +47,7 @@ export default function SelectProgram() {
     art_for_med_vision_062: null,
   });
 
+  // ประเภทข้อมูลของจาก api list_programs
   type Program = {
     faculty: string;
     program_id: number;
@@ -53,19 +57,19 @@ export default function SelectProgram() {
     gpax_required: number;
   };
 
+  // เพิ่มข้อมูลเกี่ยวกับโอกาสสอบติดเข้าไปใน Program
   type ProgramWithPercentage = Program & {
-    percentage?: number;
-    chanceCategory?: string;
-    chanceMessage?: string;
+    percentage?: number; // คิดเป็นเปอร์เซ็นต์ของคะแนนเทียบกับ min-max
+    chanceCategory?: string; // หมวดหมู่โอกาสสอบติด
+    chanceMessage?: string; // ข้อความให้กำลังใจ
   };
 
+  // State สำหรับเก็บผลลัพธ์ทั้งหมดและผลที่กรองแล้ว
   const [allResults, setAllResults] = useState<Program[]>([]);
-  const [filteredResults, setFilteredResults] = useState<
-    ProgramWithPercentage[]
-  >([]);
-  const [loading, setLoading] = useState(false);
+  const [filteredResults, setFilteredResults] = useState<ProgramWithPercentage[]>([]);
+  const [loading, setLoading] = useState(false); // ใช้สำหรับแสดง loading ระหว่างรอผล
 
-  // Function to categorize chance based on percentage
+  // ฟังก์ชันจัดหมวดหมู่คำพูดโอกาสสอบติดตามเปอร์เซ็นต์
   const categorizeChance = (
     percentage: number
   ): { category: string; message: string } => {
@@ -96,6 +100,7 @@ export default function SelectProgram() {
     }
   };
 
+  // เมื่อผู้ใช้กรอกข้อมูลคะแนนแต่ละช่อง จะเรียกฟังก์ชันนี้
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setScores({
@@ -104,9 +109,10 @@ export default function SelectProgram() {
     });
   };
 
+  // เมื่อผู้ใช้กดปุ่ม submit เพื่อส่งคะแนนไปยัง backend
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading(true); // เริ่มโหลด
 
     try {
       const response = await fetch(
@@ -116,7 +122,7 @@ export default function SelectProgram() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(scores),
+          body: JSON.stringify(scores), // ส่งคะแนนทั้งหมดไปยัง backend
         }
       );
 
@@ -125,16 +131,16 @@ export default function SelectProgram() {
       }
 
       const data = await response.json();
-      setAllResults(data);
+      setAllResults(data); // เก็บข้อมูลโปรแกรมทั้งหมดที่ได้จาก backend
 
-      // Filter results based on selected program name
+      // กรองเฉพาะโปรแกรมที่ตรงกับโปรแกรมที่ผู้ใช้เลือก
       if (selectedProgram) {
         const filtered = data.filter(
           (program: Program) =>
             program.program_name === selectedProgram.program_name
         );
 
-        // Calculate percentage for each filtered program and categorize chance
+        // คำนวณเปอร์เซ็นต์และจัดกลุ่มโอกาสสอบติด
         const filteredWithPercentage = filtered.map((program: Program) => {
           const percentage =
             selectedProgram.max_score !== selectedProgram.min_score
@@ -171,10 +177,11 @@ export default function SelectProgram() {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setLoading(false);
+      setLoading(false); // จบการโหลด
     }
   };
 
+  // ประเภทข้อมูลของ list โปรแกรมที่แสดงใน <select>
   interface type_list_Program {
     id: number;
     program_id: number;
@@ -184,10 +191,11 @@ export default function SelectProgram() {
     max_score: number;
   }
 
+  // เก็บรายการโปรแกรมทั้งหมดและโปรแกรมที่เลือก
   const [var_list_programs, setPrograms] = useState<type_list_Program[]>([]);
-  const [selectedProgram, setSelectedProgram] =
-    useState<type_list_Program | null>(null);
+  const [selectedProgram, setSelectedProgram] =useState<type_list_Program | null>(null);
 
+    // ดึงข้อมูล list_programs จาก API มาแสดงใน dropdown
   useEffect(() => {
     fetch(
       `${baseURL}/list_programs`,
@@ -208,14 +216,14 @@ export default function SelectProgram() {
       })
       .then((data) => {
         setPrograms(data);
-        setSelectedProgram(data[0]);
+        setSelectedProgram(data[0]); // ตั้งค่า default โปรแกรมแรก
       })
       .catch((err) => {
         console.error("Error fetching data:", err.message);
       });
   }, []);
 
-  // Filter results when selected program changes - using program_name for comparison
+  // คำนวณโอกาสสอบติดใหม่เมื่อเปลี่ยนโปรแกรมที่เลือก
   useEffect(() => {
     if (selectedProgram && allResults.length > 0) {
       const filtered = allResults.filter(
@@ -257,13 +265,14 @@ export default function SelectProgram() {
     }
   }, [selectedProgram, allResults]);
 
+  // เมื่อผู้ใช้เลือกโปรแกรมใน <select>
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = Number(event.target.value);
     const program = var_list_programs.find((p) => p.program_id === selectedId);
     setSelectedProgram(program || null);
   };
 
-  // Function to get background color based on chance category
+  // เปลี่ยนสีพื้นหลังตามระดับโอกาสสอบติด
   const getChanceBgColor = (category: string | undefined): string => {
     switch (category) {
       case "no-chance":
@@ -306,7 +315,7 @@ export default function SelectProgram() {
             <br />
             2. กรอกคะแนน GPAX และคะแนน NetSat, สมรรถนะ, TGAT TPAT
             <br />
-            3. กดปุ่ม &quot;Get result&quot; เพื่อดูผลลัพธ์
+            3. กดปุ่ม &quot;แสดงผลลัพธ์&quot; เพื่อดูผลลัพธ์
             <br />
             4. ผลลัพธ์จะแสดงความเป็นไปได้ในการเข้าศึกษาในหลักสูตรที่เลือก
             <br />
@@ -323,7 +332,7 @@ export default function SelectProgram() {
       </dialog>
 
       {/* form */}
-      <form onSubmit={handleSubmit} className="my-8 w-1/2">
+      <form onSubmit={handleSubmit} className="my-8 md:w-1/2 sm:w-sx">
         <h1 className="text-xl font-bold mb-4">🎓 เลือกหลักสูตร</h1>
         {/* Dropdown เลือกโปรแกรม */}
         <select
@@ -884,7 +893,7 @@ export default function SelectProgram() {
       {/* result 2 */}
       <div className="px-10 my-6 items-center justify-center text-center drop-shadow-xl rounded-xl">
         {allResults.length > 0 ? (
-          <div className="w-full p-2 ml-4 md:px-0">
+          <div className="w-full p-2 md:px-0">
             <div className="flex flex-col mb-4">
               {filteredResults.length > 0 ? (
                 <div className="overflow-x-auto mb-8">
