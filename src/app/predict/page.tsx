@@ -103,9 +103,21 @@ export default function SelectProgram() {
   // เมื่อผู้ใช้กรอกข้อมูลคะแนนแต่ละช่อง จะเรียกฟังก์ชันนี้
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    let parsedValue = value === "" ? null : parseFloat(value);
+  
+    if (parsedValue !== null) {
+      // ถ้าเป็น gpax ให้ไม่เกิน 4
+      if (name === "gpax") {
+        parsedValue = Math.min(parsedValue, 4);
+      } else {
+        // ฟิลด์อื่น ๆ ให้ไม่เกิน 100
+        parsedValue = Math.min(parsedValue, 100);
+      }
+    }
+  
     setScores({
       ...scores,
-      [name]: value === "" ? null : parseFloat(value),
+      [name]: parsedValue,
     });
   };
 
