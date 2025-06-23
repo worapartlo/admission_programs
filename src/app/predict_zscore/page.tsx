@@ -57,8 +57,8 @@ export default function SelectProgram() {
   };
 
   // เพิ่มข้อมูลเกี่ยวกับโอกาสสอบติดเข้าไปใน Program
-  type ProgramWithPercentage = Program & {
-    percentage?: number; // คิดเป็นเปอร์เซ็นต์ของคะแนนเทียบกับ min-max
+  type ProgramWithZscore = Program & {
+    z_score?: number; // คิดเป็นเปอร์เซ็นต์ของคะแนนเทียบกับ min-max
     chanceCategory?: string; // หมวดหมู่โอกาสสอบติด
     chanceMessage?: string; // ข้อความให้กำลังใจ
   };
@@ -66,27 +66,27 @@ export default function SelectProgram() {
   // State สำหรับเก็บผลลัพธ์ทั้งหมดและผลที่กรองแล้ว
   const [allResults, setAllResults] = useState<Program[]>([]);
   const [filteredResults, setFilteredResults] = useState<
-    ProgramWithPercentage[]
+    ProgramWithZscore[]
   >([]);
   const [loading, setLoading] = useState(false); // ใช้สำหรับแสดง loading ระหว่างรอผล
 
-  // ฟังก์ชันจัดหมวดหมู่คำพูดโอกาสสอบติดตามเปอร์เซ็นต์
+  // ฟังก์ชันจัดหมวดหมู่คำพูดโอกาสสอบติดตามช่วงz-score  
   const categorizeChance = (
-    percentage: number
+    z_score: number
   ): { category: string; message: string } => {
-    if (percentage <= 0) {
+    if (z_score <= -1) {
       return {
         category: "no-chance",
         message:
           "📌 ขณะนี้คะแนนยังไม่ถึงเกณฑ์ที่ใช้พิจารณา 📌\nแต่ยังมีเวลาในการพัฒนาและเตรียมตัวให้พร้อมมากขึ้นในอนาคต",
       };
-    } else if (percentage > 0 && percentage <= 33) {
+    } else if (z_score < 0) {
       return {
         category: "low-chance",
         message:
           "🌱 มีโอกาสสอบติดในระดับเริ่มต้น 🌱\nหากตั้งใจพัฒนาอย่างต่อเนื่อง โอกาสก็จะเพิ่มขึ้นได้แน่นอน",
       };
-    } else if (percentage > 33 && percentage <= 66) {
+    } else if (z_score < 1) {
       return {
         category: "medium-chance",
         message:
@@ -124,6 +124,7 @@ export default function SelectProgram() {
 
   // เมื่อผู้ใช้กดปุ่ม submit เพื่อส่งคะแนนไปยัง backend
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("Handle submit pass");
     e.preventDefault();
     setLoading(true); // เริ่มโหลด
 
@@ -142,53 +143,47 @@ export default function SelectProgram() {
 
       const data = await response.json();
       setAllResults(data); // เก็บข้อมูลโปรแกรมทั้งหมดที่ได้จาก backend
-
+      
+      console.log("Respone pass");
       // กรองเฉพาะโปรแกรมที่ตรงกับโปรแกรมที่ผู้ใช้เลือก
       if (selectedProgram) {
-        /*const filtered = data.filter(
-          (program: Program) =>
-            program.program_name === selectedProgram.program_name
-        );*/
-        const filtered = data.filter(
+       /*const filtered = data.filter(
           (program: Program) => {
-        const isMatch = program.program_name === selectedProgram.program_name;
+        const isMatch = program.program_name.trim().toLowerCase() === selectedProgram.program_name.trim().toLowerCase();
         console.log(`Matching Program: ${program.program_name} === ${selectedProgram.program_name}: ${isMatch}`);
         return isMatch;
           },
           console.log("Filtered pass")
+        );*/
+        const filtered = data.filter(
+          (program: Program) =>
+            program.program_name.trim().toLowerCase() === selectedProgram.program_name.trim().toLowerCase()
         );
 
         // คำนวณเปอร์เซ็นต์และจัดกลุ่มโอกาสสอบติด
-        const filteredWithPercentage = filtered.map((program: Program) => {
-          const percentage =
-            selectedProgram.max_score !== selectedProgram.min_score
-              ? ((program.total_score - selectedProgram.min_score) /
-                  (selectedProgram.max_score - selectedProgram.min_score)) *
-                100
-              : program.total_score >= selectedProgram.min_score
-              ? 100
-              : 0;
+        const filteredWithZscore = filtered.map((program: Program) => {
+          const z_score =
+            selectedProgram.sd_avg !== 0
+            ? ( program.total_score - selectedProgram.mean_avg) / selectedProgram.sd_avg
+            : 0;
 
-          const percentageValue = parseFloat(percentage.toFixed(2));
-          const { category, message } = categorizeChance(percentageValue);
+          const z_scoreValue = parseFloat(z_score.toFixed(2));
+          const { category, message } = categorizeChance(z_scoreValue);
 
+          console.log("Handle submit");  
           console.log(
-            `Program: ${program.program_name}, Faculty: ${program.faculty}`
-          );
-          console.log(
-            `Total Score: ${program.total_score}, Min Score: ${selectedProgram.min_score}, Max Score: ${selectedProgram.max_score}`
-          );
-          console.log(`Percentage: ${percentageValue}%, Chance: ${message}`);
+            `Program: ${program.program_name}, Faculty: ${program.faculty}, Total Score: ${program.total_score}, Mean avg: ${selectedProgram.mean_avg}, SD avg: ${selectedProgram.sd_avg}, z_score: ${z_scoreValue}, Chance: ${message}`
+            );
 
           return {
             ...program,
-            percentage: percentageValue,
+            z_score: z_scoreValue,
             chanceCategory: category,
             chanceMessage: message,
           };
         });
 
-        setFilteredResults(filteredWithPercentage);
+        setFilteredResults(filteredWithZscore);
       } else {
         setFilteredResults(data);
       }
@@ -205,8 +200,8 @@ export default function SelectProgram() {
     program_id: number;
     program_name: string;
     faculty_name: string;
-    min_score: number;
-    max_score: number;
+    mean_avg: number;
+    sd_avg: number;
   }
 
   // เก็บรายการโปรแกรมทั้งหมดและโปรแกรมที่เลือก
@@ -216,7 +211,7 @@ export default function SelectProgram() {
 
   // ดึงข้อมูล list_programs จาก API มาแสดงใน dropdown
   useEffect(() => {
-    fetch(`${baseURL}/list_programs`, {
+    fetch(`${baseURL}/list_programs_zscore`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -244,40 +239,33 @@ export default function SelectProgram() {
     if (selectedProgram && allResults.length > 0) {
       const filtered = allResults.filter(
         (program: Program) =>
-          program.program_name === selectedProgram.program_name
+          program.program_name.trim().toLowerCase() === selectedProgram.program_name.trim().toLowerCase()
       );
 
       // Calculate percentage for each filtered program and categorize chance
-      const filteredWithPercentage = filtered.map((program: Program) => {
-        const percentage =
-          selectedProgram.max_score !== selectedProgram.min_score
-            ? ((program.total_score - selectedProgram.min_score) /
-                (selectedProgram.max_score - selectedProgram.min_score)) *
-              100
-            : program.total_score >= selectedProgram.min_score
-            ? 100
+      const filteredWithZscore = filtered.map((program: Program) => {
+        const z_score =
+            selectedProgram.sd_avg !== 0
+            ? ( program.total_score - selectedProgram.mean_avg) / selectedProgram.sd_avg
             : 0;
 
-        const percentageValue = parseFloat(percentage.toFixed(2));
-        const { category, message } = categorizeChance(percentageValue);
+        const z_scoreValue = parseFloat(z_score.toFixed(2));
+        const { category, message } = categorizeChance(z_scoreValue);
 
-        console.log(
-          `Program: ${program.program_name}, Faculty: ${program.faculty}`
-        );
-        console.log(
-          `Total Score: ${program.total_score}, Min Score: ${selectedProgram.min_score}, Max Score: ${selectedProgram.max_score}`
-        );
-        console.log(`Percentage: ${percentageValue}%`);
+        console.log("Update data");  
+          console.log(
+            `Program: ${program.program_name}, Faculty: ${program.faculty}, Total Score: ${program.total_score}, Mean avg: ${selectedProgram.mean_avg}, SD avg: ${selectedProgram.sd_avg}, z_score: ${z_scoreValue}, Chance: ${message}`
+            );  
 
         return {
           ...program,
-          percentage: percentageValue,
+          z_score: z_scoreValue,
           chanceCategory: category,
           chanceMessage: message,
         };
       });
 
-      setFilteredResults(filteredWithPercentage);
+      setFilteredResults(filteredWithZscore);
     }
   }, [selectedProgram, allResults]);
 
@@ -307,7 +295,7 @@ export default function SelectProgram() {
   return (
     <div className="flex flex-col justify-center items-center p-2 m-4">
       <h1 className="font-bold underline decoration-double whitespace-nowrap text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
-        👨🏻‍🎓 โปรแกรมประเมินความเป็นไปได้ในการเข้าศึกษา 🪄📚
+        👨🏻‍🎓 โปรแกรมประเมินความเป็นไปได้ในการเข้าศึกษา(Z-score) 🪄📚
       </h1>
       {/* modal infomation */}
       <button
@@ -379,12 +367,12 @@ export default function SelectProgram() {
           ))}
         </select>
 
-        {/* แสดงข้อมูลของโปรแกรมที่เลือก
+        {/* แสดงข้อมูลของโปรแกรมที่เลือก*/}
       {selectedProgram && (
         <div className="mt-4 border p-4 rounded shadow">
           <p>
             <strong>Program ID:</strong> {selectedProgram.program_id}
-          </p>
+          </p> 
           <p>
             <strong>Program Name:</strong> {selectedProgram.program_name}
           </p>
@@ -392,13 +380,13 @@ export default function SelectProgram() {
             <strong>Faculty Name:</strong> {selectedProgram.faculty_name}
           </p>
           <p>
-            <strong>Min Score:</strong> {selectedProgram.min_score}
+            <strong>Mean Avg:</strong> {selectedProgram.mean_avg}
           </p>
           <p>
-            <strong>Max Score:</strong> {selectedProgram.max_score}
+            <strong>SD Avg:</strong> {selectedProgram.sd_avg}
           </p>
         </div>
-      )}  */}
+      )}  
 
         <fieldset className="fieldset">
           <legend className="fieldset-legend text-lg">
@@ -928,38 +916,6 @@ export default function SelectProgram() {
                       <p className="text-center text-base text-gray-700 whitespace-pre-wrap">
                         {program.chanceMessage || "N/A"}
                       </p>
-                      <div className="collapse collapse-arrow bg-gray-100 border-base-300 border my-3 w-2xl">
-                        <input type="checkbox" />
-                        <div className="collapse-title">
-                          ดูสาขาอื่นๆ ที่น่าสนใจ
-                        </div>
-                        <div className="collapse-content bg-gray-50">
-                          <table>
-                            <thead>
-                              <tr className="bg-gray-100">
-                                <th className="border p-1">คณะ</th>
-                                <th className="border p-1">ชื่อหลักสูตร</th>
-                                <th className="border p-1">คะแนนรวม</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {allResults.map((program, index) => (
-                                <tr key={index} className={"bg-gray-50"}>
-                                  <td className="border p-2">
-                                    {program.faculty}
-                                  </td>
-                                  <td className="border p-2">
-                                    {program.program_name}
-                                  </td>
-                                  <td className="border p-2">
-                                    {program.total_score}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
                     </div>
                   ))}
                 </div>
