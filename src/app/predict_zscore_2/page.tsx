@@ -979,6 +979,9 @@ export default function PredictZScore2() {
                         >
                           {result.total_score.toFixed(2)}
                         </div>*/}
+                        <div className="whitespace-pre-line text-center">
+                          {result.chanceMessage}
+                        </div>
                         <div className="divider"></div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
@@ -991,14 +994,11 @@ export default function PredictZScore2() {
                           </div>
                         </div>
                         <div className="divider"></div>
-                        <div className="whitespace-pre-line text-center">
-                          {result.chanceMessage}
-                        </div>
                         <div>
                           <p className="font-semibold">
-                            ลองเพิ่มวิชาเหล่านี้ดูดีไหม?:
+                            ลองเพิ่มคะแนนวิชาเหล่านี้ดูดีไหม?:
                           </p>
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="grid grid-cols-2 gap-2 mt-3">
                             {selectedProgram?.max_weight_subjects?.map(
                               (subjectName: string, index: number) => (
                                 <div
@@ -1019,6 +1019,7 @@ export default function PredictZScore2() {
               </div>
             </div>
           </div>
+
         </div>
 
         <div className="drawer-side">
