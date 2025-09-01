@@ -1027,76 +1027,83 @@ export default function PredictZScore2() {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-0">
+          <div className="menu bg-base-200 text-base-content min-h-full w-80 p-0">
             {/* Netsat web link */}
-            <div className="relative w-full bg-[url('/netsat.png')] bg-cover bg-center">
-              {/* Overlay เบลอ */}
-              <div className="absolute inset-0 bg-orange-950/50 backdrop-blur-sm z-10"></div>
+            <div>
+              <div className="relative w-full bg-[url('/netsat.png')] bg-cover bg-center">
+                {/* Overlay เบลอ */}
+                <div className="absolute inset-0 bg-orange-950/50 backdrop-blur-sm z-10"></div>
 
-              {/* Content วางไว้เหนือ blur layer */}
-              <div className="relative z-20 p-6 text-white">
-                <p className="mt-5 font-bold text-lg">NETSAT website</p>
-                <p>
-                  เว็บไซต์ NETSAT เพื่อเข้าสู่ระบบสมัครสอบและรายละเอียดเพิ่มเติม
-                </p>
-                <a
-                  href="https://netsat.kku.ac.th/home/"
-                  className="inline-flex items-center px-4 py-2 bg-white/20 rounded-lg transition-colors hover:bg-white/30 hover:scale-105 transition-transform duration-300 mt-3"
-                >
-                  เยี่ยมชมเว็บไซต์ →
-                </a>
+                {/* Content วางไว้เหนือ blur layer */}
+                <div className="relative z-20 p-6 text-white">
+                  <p className="mt-5 font-bold text-lg">NETSAT website</p>
+                  <p>
+                    เว็บไซต์ NETSAT
+                    เพื่อเข้าสู่ระบบสมัครสอบและรายละเอียดเพิ่มเติม
+                  </p>
+                  <a
+                    href="https://netsat.kku.ac.th/home/"
+                    className="inline-flex items-center px-4 py-2 bg-white/20 rounded-lg transition duration-300 hover:bg-white/30 hover:scale-105 mt-3"
+                  >
+                    เยี่ยมชมเว็บไซต์ →
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Admission web link */}
-            <div className="relative w-full bg-[url('/admission.png')] bg-cover bg-center">
-              {/* Overlay เบลอ */}
-              <div className="absolute inset-0 bg-yellow-950/50 backdrop-blur-sm z-10"></div>
+            <div>
+              <div className="relative w-full bg-[url('/admission.png')] bg-cover bg-center">
+                {/* Overlay เบลอ */}
+                <div className="absolute inset-0 bg-yellow-950/50 backdrop-blur-sm z-10"></div>
 
-              {/* Content วางไว้เหนือ blur layer */}
-              <div className="relative z-20 p-6 text-white">
-                <p className="mt-5 font-bold text-lg"> ADMISSION website</p>
-                <p>
-                  เว็บไซต์ Admission
-                  เพื่ออ่านรายละเอียดการรับสมัครและรายละเอียดเพิ่มเติม
-                </p>
-                <a
-                  href="https://admissions.kku.ac.th/"
-                  className="inline-flex items-center px-4 py-2 bg-white/20 rounded-lg transition-colors hover:bg-white/30 hover:scale-105 transition-transform duration-300 mt-3"
-                >
-                  เยี่ยมชมเว็บไซต์ →
-                </a>
+                {/* Content วางไว้เหนือ blur layer */}
+                <div className="relative z-20 p-6 text-white">
+                  <p className="mt-5 font-bold text-lg"> ADMISSION website</p>
+                  <p>
+                    เว็บไซต์ Admission
+                    เพื่ออ่านรายละเอียดการรับสมัครและรายละเอียดเพิ่มเติม
+                  </p>
+                  <a
+                    href="https://admissions.kku.ac.th/"
+                    className="inline-flex items-center px-4 py-2 bg-white/20 rounded-lg transition duration-300 hover:bg-white/30 hover:scale-105 mt-3"
+                  >
+                    เยี่ยมชมเว็บไซต์ →
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* วิธีการใช้งาน */}
-            <div className="p-8 bg-slate-50">
-              <h3 className="text-xl font-bold text-slate-800 mb-6">
-                📚 วิธีการใช้งาน
-              </h3>
-              <div className="space-y-4">
-                {[
-                  "เลือกหลักสูตรที่ต้องการประเมิน",
-                  "กรอกคะแนน GPAX และคะแนน NetSat, สมรรถนะ, TGAT TPAT",
-                  'กดปุ่ม "แสดงผลลัพธ์" เพื่อดูผลลัพธ์',
-                  "ผลลัพธ์จะแสดงความเป็นไปได้ในการเข้าศึกษาในหลักสูตรที่เลือก",
-                ].map((step, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-medium">
-                      {index + 1}
+            <div>
+              <div className="p-8 bg-slate-50">
+                <h3 className="text-xl font-bold text-slate-800 mb-6">
+                  📚 วิธีการใช้งาน
+                </h3>
+                <div className="space-y-4">
+                  {[
+                    "เลือกหลักสูตรที่ต้องการประเมิน",
+                    "กรอกคะแนน GPAX และคะแนน NetSat, สมรรถนะ, TGAT TPAT",
+                    'กดปุ่ม "แสดงผลลัพธ์" เพื่อดูผลลัพธ์',
+                    "ผลลัพธ์จะแสดงความเป็นไปได้ในการเข้าศึกษาในหลักสูตรที่เลือก",
+                  ].map((step, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-medium">
+                        {index + 1}
+                      </div>
+                      <p className="text-slate-600">{step}</p>
                     </div>
-                    <p className="text-slate-600">{step}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                <p className="text-amber-800 text-sm">
-                  <span className="font-medium">⚠️ หมายเหตุ:</span>{" "}
-                  โปรดตรวจสอบคะแนนให้ครบถ้วนตามที่หลักสูตรแต่ละสาขาวิชากำหนด
-                </p>
+                  ))}
+                </div>
+                <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-amber-800 text-sm">
+                    <span className="font-medium">⚠️ หมายเหตุ:</span>{" "}
+                    โปรดตรวจสอบคะแนนให้ครบถ้วนตามที่หลักสูตรแต่ละสาขาวิชากำหนด
+                  </p>
+                </div>
               </div>
             </div>
-          </ul>
+          </div>
         </div>
       </div>
     </section>
